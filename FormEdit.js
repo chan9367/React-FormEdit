@@ -7,6 +7,7 @@ export class FormEdit extends Component {
             first: "",
             last: "",
             OS: "", 
+            BirthDate: "",
             edit: false
         }; 
         
@@ -41,6 +42,8 @@ export class FormEdit extends Component {
                     <div className = "lastname">Last name: {this.state.last}</div>
                     <br/>
                     <div className = "comType">OS: {this.state.OS}</div>
+                    <br/>
+                    <div className = "BirthDate"> Birth Date: {this.state.BirthDate}</div>
                     <button onClick={this.edit}>Edit</button>
                 </div>
             ) : (
@@ -63,6 +66,16 @@ export class FormEdit extends Component {
                     placeholder = {this.state.last}
                     />
                     <br/>
+                    <p>Birthday: </p>
+                    <input
+                    className = "birthdate"
+                    type = "date"
+                    name = "birthday"
+                    value = {this.state.BirthDate}
+                    onChange = {event => this.setState({BirthDate: event.target.value})}
+
+                    />
+                    <br/>
                     <p>Favorite OS:</p>
                     <input
                     className = "initPlatform"
@@ -72,6 +85,8 @@ export class FormEdit extends Component {
                     placeholder = {this.state.compType}
                     />
                     <br/>
+
+                    
 
                     <button className="save" onClick={this.save}>
                         Save
