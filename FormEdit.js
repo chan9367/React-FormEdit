@@ -1,49 +1,89 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-class FormEdit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Lastname: "",
-      Firstname: "",
+export class FormEdit extends Component {
+    constructor(){
+        super();
+        this.state = {
+            first: "",
+            last: "",
+            OS: "", 
+            edit: false
+        }; 
+        
+        this.baseState = this.state; 
+    }
+
+    edit =  () =>{
+        this.setState({edit: true})
     };
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-  }
 
-  handleLastNameChange(event) {
-    this.setState({
-      Lastname: event.target.value,
-    });
-  }
-  handleFirstNameChange(event) {
-    this.setState({
-      Firstname: event.target.value,
-    });
-  }
+    save = () => {
+        this.setState({edit: false});
+    };
 
-  render() {
-    return (
-      <div>
-        <p>Last Name:</p>
-        <input
-          type="text"
-          value={this.state.Lastname}
-          onChange={this.handleLastNameChange}
-        />
-        <button>Edit</button>
-        <div></div>
-        <p>First Name:</p>
-        <input
-          type="text"
-          value={this.state.Firstname}
-          onChange={this.handleFirstNameChange}
-        />
-        <button>Edit</button>
-      </div>
-      
-    );
-  }
+    cancel = () => {
+        this.setState({ ...this.baseState, edit: false });
+      };
+
+
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
+
+    render() {
+        let visible = 
+            this.state.edit === false ? (
+                <div>
+                    <div className = "firstname">First name: {this.state.first}</div>
+                    <br />
+                    <div className = "lastname">Last name: {this.state.last}</div>
+                    <br/>
+                    <div className = "comType">OS: {this.state.OS}</div>
+                    <button onClick={this.edit}>Edit</button>
+                </div>
+            ) : (
+                <div>
+                    <p>First: </p>
+                    <input 
+                    className = "initFirst"
+                    type = "text"
+                    name = "first"
+                    onChange = {this.handleChange}
+                    placeholder = {this.state.first}
+                    />
+                    <br/>
+                    <p>Last: </p>
+                    <input 
+                    className = "initLast"
+                    type = "text"
+                    name = "last"
+                    onChange = {this.handleChange}
+                    placeholder = {this.state.last}
+                    />
+                    <br/>
+                    <p>Favorite OS:</p>
+                    <input
+                    className = "initPlatform"
+                    type = "text"
+                    name = "OS"
+                    onChange = {this.handleChange}
+                    placeholder = {this.state.compType}
+                    />
+                    <br/>
+
+                    <button className="save" onClick={this.save}>
+                        Save
+                    </button>
+                    <button className="cancel" onClick = {this.cancel}>
+                        Cancel
+                    </button>
+                </div>
+            );
+
+            return <div className="displayDiv">{visible}</div>
+    }
 }
 
-export default FormEdit;
+export default FormEdit
